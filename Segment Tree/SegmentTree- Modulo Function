@@ -1,0 +1,104 @@
+/*This question is use of segment tree with the operation of modulo function */
+
+
+
+#include<bits/stdc++.h>
+ using namespace std;
+ int seg[40001];
+ int tree[100001];
+ int p[100001];
+ int segment(int low,int high,int pos)
+    {
+      if(low==high)
+        seg[pos]=tree[low];
+       else
+        {
+          int mid=(low+high)/2;
+           segment(low,mid,2*pos);
+           segment(mid+1,high,2*pos+1);
+           seg[pos]=(seg[2*pos]*p[high-mid]+seg[2*pos+1])%3;
+           }
+           }
+       
+   int update(int low,int high,int val,int pos)
+   {
+       if(low==high)
+          { if(tree[low]==0)
+          {
+            seg[pos]=1;
+            tree[low]=1;
+           } } 
+        else
+        {
+        int mid=(low+high)/2;
+        
+         if(low<=val&&val<=mid)
+            update(low,mid,val,2*pos);
+            else
+            update(mid+1,high,val,2*pos+1);
+            seg[pos]=(seg[2*pos]*p[high-mid]+seg[2*pos+1])%3;
+            }
+            }
+        int query(int low,int high,int l,int r,int pos)
+      {
+        // cout<<"hello";
+          if(r<low||(l>high||low>high))
+            return 0;
+            
+           if(l<=low&&high<=r)
+             {
+               return (seg[pos]*p[r-high])%3;
+               
+                    }             
+            int mid=(low+high)/2;
+            int q1=query(low,mid,l,r,2*pos);
+            int q2=query(mid+1,high,l,r,2*pos+1);
+              return (q1+q2)%3;
+                 }          
+                           
+    int main()
+     {
+       
+      int data;
+      cin>>data;
+      p[0]=1;
+      for(int i=1;i<100001;i++)
+         p[i]=(p[i-1]*2)%3;
+      for(int i=1;i<=data;i++)
+        { char a;
+          cin>>a;
+         int num=a;
+       
+          tree[i]=num-48;
+          }
+         segment(1,data,1);
+          
+         int key;
+         cin>>key;
+         
+        
+         while(key--)
+          {
+            int num;
+            cin>>num;
+            if(num==0)
+              {
+                   int a,b;
+                   cin>>a>>b;
+                  // cout<<a<<b;
+                   int q1=query(1,data,a+1,b+1,1);
+                   cout<<q1<<"\n";
+                   }
+                   else
+                     { 
+                       int num;
+                        cin>>num;
+                        update(1,data,num+1,1);
+                        }
+                        }
+                        return 0;
+                        }
+            
+               
+               
+            
