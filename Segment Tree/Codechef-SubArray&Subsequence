@@ -1,0 +1,169 @@
+#include<bits/stdc++.h>
+typedef long long int ld;
+using namespace std;
+const ld size=1e5+1;
+const ld big=4e5+1;
+ld a[400001];
+ld bar[400001];
+ld  seg[400001];
+ld result[400001];
+ld arr[400001];
+ 
+ 
+	int segment(ld low,ld high,ld pos)
+	{  
+	  if(high==low)
+	    {
+	      a[pos]=seg[low];
+	      }
+	else
+	   {
+	    ld mid=(low+high)/2;
+	    segment(low,mid,2*pos);
+	    segment(mid+1,high,2*pos+1);
+	    a[pos]=(a[2*pos]+a[2*pos+1]);
+	      
+		 }
+         }
+         
+         ld segment2(ld low,ld high,ld pos)
+	{  
+	  if(high==low)
+	    {
+	      bar[pos]=arr[low];
+	      }
+	else
+	   {
+	    
+	    ld mid=(low+high)/2;
+	    segment2(low,mid,2*pos);
+	    segment2(mid+1,high,2*pos+1);
+	     bar[pos]=max(bar[2*pos],bar[2*pos+1]);
+	      
+		 }
+         }
+ void update(ld pos, ld low, ld high, ld idx, ld val)
+ 
+ {
+  
+    
+    if(low==high)
+    {
+        bar[pos]= val;
+    }
+    else
+    {
+        int mid = (low+high) / 2;
+        if(low <= idx && idx <= mid)
+        {
+            
+            update(2*pos, low, mid, idx, val);
+        }
+        else
+        {
+            
+            update(2*pos+1, mid+1,high, idx, val);
+        
+        }
+        
+        bar[pos] = max(bar[2*pos],bar[2*pos+1]);
+   }
+}
+ 
+ 
+ 
+	 int query(ld node, ld start, ld end, ld l, ld r)
+	{
+	    if(r < start|| end < l)
+	    {
+ 
+		return 0;
+	    }
+	    if(l <= start && end <= r)
+	    {
+		  return a[node];
+	        }
+	  
+	    ld mid = (start + end) / 2;
+	    ld p1 = query(2*node, start, mid, l, r);
+	    ld p2 = query(2*node+1, mid+1, end, l, r);
+	    return (p1 + p2);
+	            }
+      
+      int main()
+       {  
+       
+        ld t,c,b;
+        
+         cin>>t>>c>>b;
+         
+        
+         
+         string s;
+          ld one=0;
+         for(ld i=t;i>0;i--)
+           { 
+              cin>>seg[i];
+               if(seg[i]==1)
+                   one++;
+                   }
+             
+             
+           cin>>s;
+          
+           segment(1,t,1);
+ 
+          ld sub=abs(t-c+1);
+          
+           for(ld i=1;i<=sub;i++)
+                  {   ld num=c+i-1;
+                       ld q=query(1,1,t,i,num);
+                          arr[i]=q;
+                                   
+                                    } 
+                        
+                          segment2(1,sub,1);
+                          
+ 
+          
+      
+                 
+          ld j=1;
+          ld k=1;
+          for(ld i=1;i<=b;i++)
+           {   ld maximum=0;
+               if(s[i-1]=='!'&&c<t)
+                   {    ld str=seg[j];
+               		ld num=t-c+j;
+               		ld num1=t-c+j;
+               		ld num2=t-c+1+j;
+               		  if(str==seg[num])
+               		     arr[num2]=arr[num1];
+               		    else if(str==1)
+               		          arr[num2]=arr[num1]+1;
+               		         else if(seg[num]==1)
+               		             arr[num2]=arr[num1]-1;
+               		                seg[t+j]=str;
+               		                   update(1,1,sub,k,arr[num2]);
+                                                       		                 
+               		                  if(k==sub)
+               		                       k=0;
+                			        j++;
+                			         k++;
+                			  }
+               else if(s[i-1]=='?')
+               {   
+                 if(c<t)
+                       {ld maximum=bar[1];
+                         cout<<maximum<<"\n";
+                           }
+                             else 
+                             cout<<one<<"\n";
+                    
+                                 }
+                                 }
+                        
+                        return 0;
+                }                
+          
+ 
