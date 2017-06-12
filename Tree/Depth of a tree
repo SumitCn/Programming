@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ld;
+struct tree
+ {
+  ld data;
+  ld val;
+  tree* left;
+  tree* right;
+  };
+  ld maxi=0;
+  tree* root=NULL;
+  
+  tree* create(ld item,ld value)
+    {
+      tree* node=(tree*) malloc (sizeof(tree));
+      node->data=item;
+      node->val=value+1;
+      node->left=NULL;
+      node->right=NULL;
+      if(maxi<node->val)
+       maxi=node->val;
+      return node;
+      }
+             
+ 
+  
+  int insert(ld item)
+   { ld value=0;
+       if(root==NULL)
+        {
+          tree* node=create(item,value);   
+          root=node;
+          }
+       else
+         { 
+           tree* temp=root;
+           
+           while(1)
+            { value=temp->val;
+              if(item<=temp->data)
+               { 
+                if(temp->left==NULL)
+                  { temp->left=create(item,value);
+                    break;
+                    }
+                else     
+               temp=temp->left;
+               }
+              else
+                {  if(temp->right==NULL)
+                    {
+                      temp->right=create(item,value);
+                      break;
+                      }
+                  else
+                      temp=temp->right;
+                }
+                 }
+                 }
+                 }
+               
+ int traverse(tree* temp)
+   {  
+      if(temp==NULL)
+       return 0;
+      cout<<temp->val<<" ";
+      traverse(temp->left);
+      traverse(temp->right);
+             }
+                 
+                        
+ 
+   int main()
+   {
+    ld n;
+    cin>>n;
+    ld element;
+    for(ld i=0;i<n;i++)
+      { cin>>element;
+        insert(element);
+      }
+      cout<<maxi;
+      traverse(root);
+      return 0;
+      }
+      
