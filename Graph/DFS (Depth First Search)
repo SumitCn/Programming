@@ -1,0 +1,48 @@
+//Time Complexity:= O(V+E)
+
+#include<bits/stdc++.h>
+typedef long long int lld;
+using namespace std;
+
+stack<lld> s;
+bool com[100001];
+vector<lld> vi[100001];
+
+ int dfs(lld root)
+    { 
+      
+      lld j=0;
+      com[root]=true;
+      s.push(root);
+   while(!s.empty())
+    {
+      root=s.top();
+       s.pop();
+       
+       cout<<root<<" ";
+       j=0;
+       while(vi[root].size()!=j)
+         {
+           if(com[vi[root][j]]!=true)
+              { s.push(vi[root][j]);
+               com[vi[root][j]]=true;
+              }
+              j++;
+              }
+              }
+              }
+        
+int main()
+   { 
+     lld edges,l,m;
+     cin>>edges;
+      for(lld i=0;i<edges;i++)
+        {  cin>>m>>l;
+           vi[m].push_back(l);
+      
+          }
+         lld root;
+         cin>>root;
+         dfs(root);
+         return 0;
+          }
