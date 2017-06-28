@@ -1,0 +1,125 @@
+#include<bits/stdc++.h>
+typedef long long int lld;
+using namespace std;
+
+struct node 
+{
+ node* left;
+ node* right;
+ lld value;
+  
+ node(node* l ,node* r ,lld val)
+  {
+   left=l;
+   right=r;
+   value=val;
+  }
+  
+  };
+  
+ 
+  int segment(node * temp,lld store[],lld low, lld high )
+     {
+    
+          if(low==high)
+            {
+              temp->value=store[low]; 
+              return 0;
+              }     
+         else
+           {
+              temp->left= new node(NULL,NULL,0);
+              temp->right= new node(NULL,NULL, 0);
+              lld mid=(low+high)/2; 
+              segment(temp->left,store,low,mid);
+              segment(temp->right,store,mid+1,high);
+              temp->value=temp->left->value+temp->right->value;
+              }
+       }      
+     int update(node* prev, node* next, lld low, lld high, lld idx, lld val)
+        {
+           if(idx>high  or idx< low or low> high)
+               return 0;
+           else if(low==high)
+                { next->value=val;
+                  return 0;
+                 }
+           else
+              {  
+               
+              
+               
+               lld mid=(low+high)/2;
+                if(idx>mid)
+                { next->left=prev->left;
+                  next->right= new node(NULL,NULL, 0);
+                  update(prev->right,next->right,mid+1,high,idx,val);
+                 }
+                else
+                 {
+                   next->right=prev->right;
+                   next->left = new node(NULL,NULL, 0);
+                   update(prev->left,next->left,low,mid,idx,val);
+                   }
+                next->value=next->left->value+next->right->value;
+                   
+                   
+                }
+           }
+     lld query(node* temp,lld low,lld high,lld left,lld right)
+        {   if(left<low or right>high or low>high)
+                return 0;
+            else if(left<=low and high<=right)
+               return temp->value;
+            else
+              {
+               lld mid=(low+high)/2;
+               lld p=query(temp->left,low,mid,left,right);
+               lld q=query(temp->right,mid+1,high,left,right);
+               return (p+q);
+               }
+               }
+ int main()
+  {
+    lld store[100001],n;
+    node* version[10001];
+    cin>>n;
+    for(int i=1;i<=n;i++)
+      cin>>store[i];
+    version[0]=new node(NULL,NULL,0);
+    segment(version[0],store,1,n);
+    
+     lld q;
+     cin>>q;
+     lld time=1;
+     while(q--)
+     { lld idx,val;
+      cin>>idx>>val;
+      version[time]=new node(NULL,NULL,0);
+       update(version[time-1],version[time],1,n,idx,val);
+       time++;
+       }
+      lld ask;
+      cin>>ask;
+      while(ask--)
+       {
+         lld travel,left,right;  
+         cin>>travel>>left>>right;
+         lld p=query(version[travel],1,n,left,right);   
+         cout<<p<<"\n";
+         }
+      return 0;
+       } 
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
