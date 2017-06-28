@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct trie
+ { bool index;
+   trie* a[2];
+   };
+ 
+ vector<int> v;
+  
+  int binary(int data)
+    {
+        while(data>1)
+         { 
+           v.push_back(data%2);
+           data=data/2;
+          }
+           v.push_back(data);
+           
+       }
+          
+   struct trie* create()
+       {
+   
+         trie* node=new trie;
+         node->index=false;
+          node->a[0]=NULL;
+          node->a[1]=NULL;
+          
+          return node;
+         }
+          
+                                      
+  int insert(trie* temp,int data)
+    {
+      
+       for(int i=v.size()-1;i>=0;i--)
+                {
+                    int x=v[i];
+                   
+                    if(temp->a[x]==NULL)
+                        { temp->a[x]=create();
+                          temp=temp->a[x];
+                          }
+                    else         
+                     temp=temp->a[x];
+                     }   
+
+                  
+                   temp->index=1;
+                
+                   v.clear();
+                }
+                
+    int search(trie* temp, int data)          
+         { 
+             binary(data);
+             int i;
+                for( i=v.size()-1;i>=0;i--)
+                    {  int x=v[i];
+                       if(temp->a[x])
+                         temp=temp->a[x];
+                       else 
+                         break;
+                     }
+                  if(i==-1&&temp->index==1)
+                       cout<<"Element Found\n";
+                  else 
+                       cout<<"Element not found\n";
+                   
+           }          
+                             
+               
+
+  int main()
+  {
+   int data;
+   int t;
+   cin>>t;
+   
+   trie* root=create();
+    for(int i=1;i<=t;i++)
+       { 
+         cin>>data;
+         binary(data);
+         insert(root,data);
+        }
+        
+        cin>>data; 
+       
+        search(root,data);    
+        return 0;
+            }
+            
+   
+   
+ 
