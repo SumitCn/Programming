@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+typedef long long int lld;
+#define mp make_pair
+#define pb push_back
+#define pp pop_back
+#define fi first
+#define se second
+using namespace std;
+lld a[10001];
+vector<pair<lld,lld>> query; 
+lld size;
+
+ bool compare(pair<lld,lld> x ,pair<lld,lld> y)
+    {
+       if(x.fi/size!=y.fi/size)
+         return ((x.fi)/size < (y.fi)/size);
+        else
+          return (x.se < y.se);
+          
+          } 
+          
+ 
+ 
+ int moalgo(lld m)
+  {
+     size=(int)sqrt(m);
+     
+     lld currl=1,currr=1;
+     lld sum=0;
+     
+     sort(query.begin(),query.begin()+m,compare);
+     
+     for(lld i=0;i<m;i++)
+       {
+            lld l=query[i].fi;
+            lld r=query[i].se;
+            cout<<"query "<<l<<" "<<r<<" sum ";
+           
+          while(currl<l) 
+             {
+               sum-=a[currl];
+               currl++;
+               }
+          while(currl>l) 
+             {
+               sum+=a[currl-1];
+               currl--;
+               } 
+           while(currr<=r)
+             {
+                 sum+=a[currr];
+                 currr++;
+                 }        
+           while(currr>r+1)
+              {
+                sum-=a[currr-1];
+                 currr--;
+                 }
+                 cout<<sum<<" ";
+                 cout<<"\n";
+                 }
+                 } 
+            
+ int main()
+  {
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+      cin>>a[i];
+   int m;
+    cin>>m;
+    for(int i=1;i<=m;i++)
+       {
+         lld num1,num2;
+          cin>>num1>>num2;
+          query.pb(mp(num1,num2));    
+               
+               }
+           moalgo(m);    
+         return 0;
+         }      
