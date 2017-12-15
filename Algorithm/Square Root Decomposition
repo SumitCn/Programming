@@ -1,0 +1,77 @@
+//Square root decomposition rarandt
+// 0-based indexing is used 
+// Program gives the sum of element in the range l to r
+// It also updates value.
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll block[100001]={0};
+  ll idx[100001]={0};
+ll bsize=0;
+int update(ll index,ll value)
+  {
+   ll num=index/bsize;
+   block[num]+=(value-idx[index]);
+   idx[index]=value;
+   }
+   
+   
+
+int query(ll l,ll r)
+  {
+  ll sum=0;
+  while(l<r&&l%bsize!=0&&l!=0)
+    {
+     sum+=idx[l];
+     l++;
+     }
+  while(l+bsize<=r)
+     {
+       sum+=block[l/bsize];
+       l+=bsize;
+          }
+  while(l<=r)
+   {
+    
+     sum+=idx[l];
+     l++;
+     
+     }        
+   return sum;
+  }
+
+int build(ll ar[],ll n)
+  {  ll b_idx=-1;
+      bsize=sqrt(n);
+     for(ll i=0;i<n;i++)
+        { idx[i]=ar[i];
+          if(i%bsize==0)
+            b_idx++;
+          
+          block[b_idx]+=idx[i];
+         }
+    }
+
+int main()
+{
+  ll t;
+  cin>>t;
+  ll ar[100001]={0};
+  for(ll i=0;i<t;i++)
+    cin>>ar[i];
+  
+   build(ar,t);
+   ll l,m,a,b;
+   cin>>l>>m>>a>>b;
+   
+   cout<<query(l,m)<<" ";
+   update(a,b);
+   for(ll i=0;i<t;i++) 
+    cout<<idx[i];
+   
+   cout<<query(l,m)<<" ";
+   return 0;
+   } 
+     
+    
