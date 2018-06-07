@@ -8,6 +8,20 @@ using namespace std;
 #define sec second
 #define CASE(t) int t;cin>>t;while(t--) 
 typedef  long long int ll;
+
+int search (vector<ll> s,int num,int start,int last)
+ { while(start<=last)
+      {   int mid=(start+last)/2;
+          if(s[mid]==num)
+             return mid;
+         if(num<s[mid])
+             last=mid-1;
+         else
+            start=mid+1;
+      }
+      return -1;
+      }
+
 bool ispalindrome(string s)
 { ll i=0;
   ll j=s.length()-1;
