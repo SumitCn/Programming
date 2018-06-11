@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mp make_pair
+#define pb push_back
+#define pop pop_back
+#define pr pair<ll,ll>
+#define fi first
+#define sec second
+#define CASE(t) int t;cin>>t;while(t--) 
+int md=1000000007;
+typedef  long long int ll;
+int dp[110][2000]={0};
+int idx=1;
+int recurse(int a, int b)
+ { 
+   
+    if(a==0)
+      return b==0;
+ 
+      if(b==0)
+     {  
+         return 1;
+     }    
+
+    int ans=0;
+   if(dp[a][b]!=-1)
+      return dp[a][b];
+    for(int i=0;i<=9;i++)
+      { if(b-i>=0)
+        ans+=(recurse(a-1,b-i));
+         ans=ans%md;
+       }
+      dp[a][b]=ans%md;
+    return ans;
+ }   
+ 
+int finalcount(int a , int b)
+ {
+    int ans=0;
+    for(int i=1;i<=9;i++)
+      if(b-i>=0)
+        ans=(ans+recurse(a-1,b-i)%md;
+    return ans%md;
+  }
+
+int main()
+{
+  CASE(t)
+   {
+	int a,b;
+	cin>>a>>b;
+        idx=1;
+        for(int i=0;i<110;i++)
+            for(int j=0;j<2000;j++) 
+              dp[i][j]=-1;
+	 int ans=finalcount(a,b);
+   	(ans==0)?cout<<"-1":cout<<ans;
+	 
+        cout<<endl;
+          
+     
+ 
+ }
+return 0;
+}
