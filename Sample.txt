@@ -5,6 +5,7 @@ using namespace std;
 #define pp pop_back
 #define pr pair<ll,ll>
 #define fi first
+#define conv(ss,gg ,x) {stringstream gg(ss); gg>>x;}
 #define sec second
 #define CASE(t) int t;cin>>t;while(t--) 
 typedef  long long int ll;
