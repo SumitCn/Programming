@@ -1,0 +1,20 @@
+Note: indexing start from 0;
+* Upper bound always return the index of first element which is greater than the element asked.
+* Lower bound always return the index of first element which is not less than the asked element.
+
+Eg. 
+10 10 10 20 20 20
+
+lowerbound(9) = 0
+upperbound(9)=  1
+upperbound(10)= 3
+lowerbound(10)= 0
+
+upperbound(20)= 6
+upperbound(21) =6
+Lower bound:
+Now you can see lower bound for 9 and 10 is same so do check whether the ith element is equal to asked element or not.
+
+Upperbound
+There is a confusion in upper bound only when you search the highest element or element greater than highest element.
+The index is array length , so check whether (i-1)th element is equal to asked element or not.
