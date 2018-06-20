@@ -10,6 +10,9 @@ using namespace std;
 #define CASE(t) int t;cin>>t;while(t--) 
 typedef  long long int ll;
 
+int seive(ll visit[],ll num){  visit[0]=1;visit[1]=1; for(ll i=2;i<=sqrt(num);i++){  if(visit[i]==0) for(ll j=i*2;j<num;j+=i) visit[j]=1; } }
+
+
 int search (vector<ll> s,int num,int start,int last)
  { while(start<=last)
       {   int mid=(start+last)/2;
