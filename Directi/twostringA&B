@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int check(string m,string n)
+ {ll ans=0,res=0;
+  map<ll,ll> mp;
+  map<ll,ll> mq;
+  for(int i=0;i<m.length();i++)
+     if(mp[m[i]]==0)
+        { ans++;
+        mp[m[i]]=1;
+        }
+   for(int i=0;i<n.length();i++)
+     if(mq[n[i]]==0)
+        { res++;
+        mq[n[i]]=1;
+        }
+
+ return max(res,ans);
+   }
+
+int diff(string m , string n ,int p)
+{
+  if(p==0)
+    return 999999999;
+  
+   int ans = min(check(m,n),diff(m,n,p-1));
+   swap(m[p-1],n[p-1]);
+   int res= min(check(m,n), diff(m,n,p-1));
+   return min(ans,res);   
+ 
+}
+
+int main()
+{
+int t;
+cin>>t;
+while(t--)
+{
+int a;
+cin>>a;
+
+string m,n;
+cin>>m>>n;
+
+cout<<diff(m,n,m.length());	
+
+}
+return 0;
+}
+
