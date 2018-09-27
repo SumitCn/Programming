@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int id=0;
+int matrix(int ar[100][100],int i, int j ,int m , int n)
+ {
+    if(i>=m)
+       return 99999999;
+    if(j>=n)
+        return 9999999;
+    if(i==m-1&&j==n-1)
+       {id=1;
+        
+        return 0;
+        }
+     
+    int val= ar[i][j];
+   
+    int ans= 1+min(matrix(ar,i+val,j,m,n),matrix(ar,i,j+val,m,n));
+    return ans;
+
+
+}
+int main()
+{
+int ar[100][100];
+  int m , n;
+  cin>>m>>n;
+  for(int i=0;i<m;i++)
+   for(int j=0;j<n;j++)
+      cin>>ar[i][j];
+
+
+int ans= matrix(ar,0,0,m,n);
+if(id==0)
+  cout<<"Not possibe";
+else 
+  cout<<ans<<"\n";
+
+
+
+return 0;
+}
