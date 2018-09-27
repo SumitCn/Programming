@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+ int t;
+ cin>>t;
+ while(t--)
+{
+ double a,b,c,d;
+ cin>>a>>b>>c>>d;
+ double res=a+b;
+ double time =(double) c/res;
+ if(time>=d)
+   cout<<"1.0"<<"\n";
+ else
+   cout<<float(t-d)/d;
+  
+
+
+}
+return 0;
+}
