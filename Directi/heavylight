@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+  
+
+ int t;
+ cin>>t;
+ for(int i=0;i<t;i++)
+  {
+   ll a,b;
+   cin>>a>>b;
+   int cr[10001]={0};
+   
+   int n;
+   while(b--)
+    {
+      int n;
+      cin>>n;
+     int ar[10001]={0};
+   int br[10001]={0};
+      for(int i=0;i<n;i++)
+       cin>>ar[i];
+      for(int j=0;j<n;j++)
+       cin>>br[j];
+        
+      char c;
+      cin>>c;
+   
+    if(c=='=')
+     {
+    for(int i=0;i<n;i++)
+      { cr[ar[i]]=1;
+        cr[br[i]]=1; }
+      }
+   if(c=='<')
+      {
+     for(int i=0;i<n;i++)
+      { if(cr[ar[i]]==3)
+           cr[ar[i]]=1;
+        if(cr[ar[i]]==0)
+           cr[ar[i]]=2;
+        
+         if(cr[br[i]]==2)
+           cr[br[i]]=1;
+        if(cr[br[i]]==0)
+           cr[br[i]]=3;
+              }
+        } 
+         if(c=='>')
+      {
+     for(int i=0;i<n;i++)
+      { if(cr[ar[i]]==2)
+           cr[ar[i]]=1;
+        if(cr[ar[i]]==0)
+           cr[ar[i]]=3;
+        
+         if(cr[br[i]]==3)
+           cr[br[i]]=1;
+        if(cr[br[i]]==0)
+           cr[br[i]]=2;
+              }
+        } 
+     
+
+   }
+   int num=0;
+   int ans=0;
+  for(int i=1;i<=a;i++)
+    {//cout<<cr[i]<<" ";
+      if(cr[i]!=1)
+       {num=i;
+         ans++;}
+     }
+ if(ans==1)
+  cout<<num;
+else 
+  cout<<"0";
+   cout<<endl;
+}
+return 0;
+}
