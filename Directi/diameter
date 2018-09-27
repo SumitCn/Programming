@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ vector<pair<ll,ll>> v;
+map<ll,ll> mp;
+ll ar[100001]={0};
+int diameter(ll n,ll i)
+{
+  if(i>n)
+   {
+     return INT_MAX;
+       }
+   ll left = diameter(n,2*i);
+   ll right = diameter(n,2*i+1);
+   
+    if(left==INT_MAX)
+         left=0  ;
+    if(right==INT_MAX)
+         right =0;
+   v[i].first=left+right+ar[i];
+   v[i].second = max(left,right)+ar[i];  
+      return v[i].second;
+
+}
+
+int main()
+{
+ int t;
+ cin>>t;
+ while(t--)
+ {
+   ll n;
+   
+   cin>>n;
+  v.push_back(make_pair(0,0));
+  for(int i=0;i<100001;i++)
+   { ar[i]=0;
+      v.push_back(make_pair(0,0));}
+   for(ll i=1;i<=n;i++)
+    { 
+      cin>>ar[i];
+     
+  }
+
+   diameter(n,1);
+   ll maxi=INT_MIN;
+for(ll i=1;i<=n;i++)
+  { 
+   
+    maxi=max(maxi,v[i].first);
+   }
+cout<<maxi<<"\n";
+ 
+
+}
+return 0;
+} 	
