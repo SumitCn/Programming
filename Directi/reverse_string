@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+string swap(string ss,string s, ll m , ll n)
+  {    string p=s;
+       reverse(p.begin()+m, p.begin()+n+1);
+      // cout<<p<<" ";
+       if(p<ss)
+       return p;
+		 
+
+
+  }
+int main()
+{
+int t;
+cin>>t;
+while(t--)
+  {
+   string s;
+   cin>>s;
+  ll findex=0;
+   for(ll i=0;i<s.length();i++)
+    if(s[i]=='b')
+       { findex=i;
+         break;}
+  ll lindex=findex;
+   string ss;
+   ss=s;
+   for(ll i=findex;i<s.length();i++)
+      {
+         if(s[i]=='a')
+          {
+           string p=swap(ss,s,findex,i);
+           if(p<ss)
+             { ss=p; 
+               lindex=i;
+              }
+          }
+
+       }
+    cout<<findex<<","<<lindex<<"\n";  
+  }
+return 0;
+} 
