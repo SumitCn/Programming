@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+  int t;
+  cin>>t;
+  while(t--)
+  {
+    vector<string> mp[124];
+    int a;
+    cin>>a;
+    string s;
+    for(int i=0;i<a;i++)
+    {  cin>>s;
+      for(int j=0;j<s.length();j++)
+        {  string p; 
+           if(mp[s[j]].size()!=0)
+              p = mp[s[j]][0];
+            p=p+to_string(i);
+            
+            mp[s[j]].clear();
+            mp[s[j]].push_back(p);
+        } 
+    }
+
+//for(int i=65;i<=97;i++)
+  //if(mp[i].size()!=0) 
+ // cout<<mp[i][0]<<" ";
+int fac[10001]={0};
+map<string,ll> mq;
+fac[1]=1;
+for(int i=2;i<20;i++)
+  fac[i]=fac[i-1]*i;
+int ans=1;
+
+  for(int i=65;i<=97;i++)
+   {   int count=1;
+      if(mp[i].size()!=0&&mq[mp[i][0]]==0)
+     {   mq[mp[i][0]]=0;
+         for(int j=i+1;j<=97; j++)
+           { 
+            if(mp[j].size()!=0)  
+              {
+               if(mp[j][0]==mp[i][0]) 
+                 {  
+               count++;}
+              }
+           }
+       mq[mp[i][0]]=1;
+   }
+      
+       ans*=fac[count];
+
+
+   }
+cout<<ans<<endl;
+}
+ return 0;
+
+}
