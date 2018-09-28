@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ vector<ll> p[10001];
+ll visit[100001]={0};
+ll ar[100001]={0};
+ll dfs(ll root)
+ {
+   if(p[root].size()==0)
+      return 1;
+        
+     ll prev=ar[root];
+     ll count=0;
+     ll id=0;
+    for(ll i=0;i<p[root].size();i++)
+       {     
+             if(visit[p[root][i]]!=1)
+              {
+                  int val=dfs(p[root][i]);
+                    count+=val;
+                 if(prev!=ar[p[root][i]])
+                    id=1;   
+           }
+       }
+     if(id==0)
+      count+=1;
+     else
+       ar[root]=-1;
+    return count;
+
+   }
+
+int main()
+{
+ ll t;
+ cin>>t;
+
+  
+    for(ll i=0;i<t;i++)
+      { cin>>ar[i];
+      }  
+   ll b=t-1;
+  
+  while(b--)
+   {
+     ll x,y;
+     cin>>x>>y;
+  	  p[x].push_back(y);
+     
+
+   }
+  cout<< dfs(0);
+
+   
+return 0;
+}
