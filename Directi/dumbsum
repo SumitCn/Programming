@@ -1,0 +1,32 @@
+ #include <bits/stdc++.h>
+#define f(i, j, k) for (int i = j; i < k; i++)
+#define mod 1000000007
+ typedef long long ll;
+    using namespace std;
+ 
+ 
+    ll summod(ll x,ll y)
+    {
+        ll res=(x%mod+y%mod)%mod;
+        return res;
+    }
+ 
+    int main()
+    {
+        int t,n; cin>>t;
+        ll dp[1001];
+        dp[0]=0;
+        dp[1]=2;
+        dp[2]=5;
+        dp[3]=13;
+        f(i,4,1001)
+        {
+            dp[i]=summod(summod(2*dp[i-1],dp[i-2]),dp[i-3]);
+        }
+        while(t--)
+        {
+            cin>>n;
+            cout<<dp[n]<<endl;
+        }
+        return 0;
+    }
