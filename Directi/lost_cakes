@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll; 
+#define MK make_pair
+#define F first
+#define S second
+vector<ll> v[100001];
+
+int bfs(ll root,ll ans)
+  {
+    queue<pair<ll,ll>> q;
+    ll com[400001]={0}; 
+    ll j=0;
+    q.push(MK(root,0));
+    com[root]=true;
+    while(!q.empty())
+       {
+         pair<ll,ll> res=q.front();
+        
+         q.pop();
+           if(res.F==ans)
+             return res.S;
+          j=0;
+         while(v[res.F].size()!=j) 
+          { 
+            if(com[v[res.F][j]]!=true)
+                  {
+                    q.push(MK(v[res.F][j],res.S+1));
+                    com[v[res.F][j]]=true; 
+                    
+                  }
+                     j++;
+           }
+                  
+          }
+      }
+
+
+
+int main()
+{
+ int t;
+ cin>>t;
+ while(t--)
+  {
+    ll a, b,c,d;
+    cin>>a>>b>>c>>d;
+    for(int i=0;i<b;i++)
+     {
+       int m, n;
+  		 cin>>m>>n;
+       v[m].push_back(n);
+ 		 v[n].push_back(m);
+       }
+     cout<<bfs(c,d);
+   for(int i=0;i<=a;i++)
+    v[i].clear();
+
+   }
+return 0;
+}
