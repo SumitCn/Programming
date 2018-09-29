@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+map<string , vector<string> > mp;
+map<string,int> mq;
+queue<pair<string,ll>> q;
+map<string,ll> com;
+vector<string> v;
+#define F first
+#define S second
+
+int bfs(string root,string b)
+  {
+
+   ll j=0;
+    q.push(make_pair(root,0));
+    com[root]=true;
+   int count=0;
+    while(!q.empty())
+       {
+        
+         pair<string,ll> pp=q.front();
+         //cout<<pp.F<<" ";
+         q.pop();
+         if(pp.F==b)
+          { return pp.S;
+          }
+         int val = pp.S;
+         j=0;
+         while(mp[pp.F].size()!=j) 
+          { 
+            if(com[mp[pp.F][j]]!=true)
+                  { 
+                    q.push(make_pair(mp[pp.F][j],val+1));
+                    com[mp[pp.F][j]]=true; 
+                    
+                  }
+                     j++;
+           }
+                
+          }
+
+   return -1;
+   }
+int check(string a, string b)
+  {
+   int count=0;
+    if(a.length()==b.length())
+       for(int i=0;i<a.size();i++)
+        { { if(a[i]!=b[i])
+            count++;
+           }
+         }
+       if(count==1)
+         return 1;
+        
+    if(abs( int(a.length())-int(b.length()) )==1)
+       { count=0;
+         int tt=max(a.length(),b.length());
+       
+        for(int i=0 ,j=0 ;i<tt,j<tt;)
+          {    if(a[i]!=b[j])
+                { count++;
+                  i++; }
+                else{i++;j++;}
+          }
+          
+            if(count==1)
+               return 1;
+          count=0;   
+       for(int i=0 ,j=0 ;i<tt,j<tt;)
+          {    if(a[i]!=b[j])
+                { count++;
+                  j++; }
+               else
+    					{i++;j++;}
+          }
+ 
+            if(count==1)
+               return 1;
+              }      
+       
+  return 0;
+ }
+int main()
+{
+  
+  string s;
+  cin>>s;
+  while(s!="END")
+    {
+     v.push_back(s);
+     cin>>s;
+    }
+ 
+
+   for(int i=0;i<v.size();i++)
+     { vector<string> p;
+         for(int j=0;j<v.size();j++)
+       {
+          if(v[i]!=v[j])
+            if(check(v[i],v[j])==1)
+               p.push_back(v[j]);
+
+ 
+          }
+      mp[v[i]]=p;
+     }
+ /*
+ for(int i=0;i<v.size();i++)
+  {  cout<<v[i]<<" : ";
+     for(int j=0;j<mp[v[i]].size();j++)
+     {cout<<mp[v[i]][j]<<" ";
+        }cout<<"\n";
+   }
+*/
+
+  string a,b;
+   cin>>a>>b;
+  cout<< bfs(a,b);
+
+
+return 0;
+}
