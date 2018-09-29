@@ -30,9 +30,10 @@ int main()
             else if(s[i]=='(')
                {idx-=1;con=0;}
             else if(s[i]==')')
-              { idx+=1 ; con = 0;
+              { idx-=1;
+                con = 1;
                }
-                  
+           // cout<<s[i]<<" "<<idx<<"\n";      
               }
               val+=1000;
               int id=0;
@@ -48,5 +49,3 @@ int main()
         
       return 0;
     }
-
-      
