@@ -1,0 +1,96 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define F first
+#define S second
+typedef long long int ll;
+ll cr[100001]={0};
+vector<ll> v[10001];
+vector<pair<ll,ll>> idx;
+bool visit[100001]={0};
+bool disit[100001]={0};
+int dfs(int root)
+  { 
+     if(v[root].size()==0)
+     { idx[root].F+=idx[root].S;
+       return 0;
+      }
+    int sum=0;
+     for(int i=0;i<v[root].size();i++)
+       { if(visit[v[root][i]]==0)
+           { dfs(v[root][i]);
+            
+            idx[root].S+=idx[v[root][i]].S;
+            visit[v[root][i]]=1;
+             }
+        }
+     idx[root].F+=idx[root].S;
+return 0;
+}
+
+int dfss(int root)
+  {
+   cout<<root<<" ";
+  
+     if(v[root].size()==0)
+     { cr[root] = idx[root].F;
+       return idx[root].F;
+      }
+
+    int sum=idx[root].F;
+     for(int i=0;i<v[root].size();i++)
+       { if(disit[v[root][i]]==0)
+           { 
+             sum+=dfss(v[root][i]);
+            
+             disit[v[root][i]]=1;
+             }
+        }
+     cr[root]=sum;
+     return sum;
+}
+int main()
+{
+ int t;
+ cin>>t;
+ while(t--)
+  {
+    ll m,n,q;
+    cin>>n>>m>>q;
+idx.push_back(make_pair(0,0));
+    for(int i=0;i<n;i++)
+   { ll tt; 
+     cin>>tt;
+     if(tt!=0)
+     v[tt].push_back(i+1);
+    idx.push_back(make_pair(0,0));
+    }
+   for(int i=0;i<m;i++)
+    { string s;
+       int a,b;cin>>s>>a>>b;
+        if(s=="ADD")
+           idx[a].F+=b;
+       else 
+           idx[a].S+=b; 
+    }
+
+    dfs(1);
+
+   dfss(1);
+
+
+  for(int i=0;i<q;i++)
+   {
+    string s;int a;
+    cin>>s>>a;
+    if(s=="VAL")
+      cout<<idx[a].F<<"\n";
+   else
+      cout<<cr[a]<<"\n";
+
+    }
+for(int i=0;i<=n;i++)
+ { v[i].clear();cr[i]=0;visit[i]=0;disit[i]=0;}
+idx.clear();
+   }
+return 0;
+}
