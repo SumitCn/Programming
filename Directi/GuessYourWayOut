@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main () {
+    int t;
+	 while(t--)
+	 {
+    bool last_r;
+    long long answer, a, h, n;
+
+    cin >> h >> n;
+
+    answer = 0;
+    last_r = true;
+    a = (1ll << h) >> 1;
+    while ( a ) {
+        if ( !last_r ) {
+            if ( n <= a ) {
+                last_r = false;
+                answer += (a << 1) - 1;
+            }
+            else {
+                last_r = true;
+                n -= a;
+            }
+        }
+        else {
+            if ( n > a ) {
+                n -= a;
+                last_r = true;
+                answer += (a << 1) - 1;
+            }
+            else {
+                last_r = false;
+            }
+        }
+        a >>= 1;
+        ++ answer;
+    }
+
+    cout << answer << endl;
+    }
+    return 0;
+}
