@@ -1,45 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long int ll;
 
 
-const long long nn=1e5+5;
-vector<pair<long long, long long> > box[nn];
-long long dp[nn][10];
-bool vis[nn];
+vector<pair<ll,ll> > color[100001];
+ll dp[100001][10];
+bool vis[100001];
 
-long long f(long long i, long long pre)
+ll f(ll i, ll idx)
 {
-    if(i==0) return 0;
+    if(i==0)
+     return 0;
 
-    if(dp[i][pre]!=-1) return dp[i][pre];
+    if(dp[i][idx]!=-1)
+      return dp[i][idx];
     
-    long long res=INT_MIN;
-    for(long long j=0;j<box[i].size();j++){
-        if(box[i][j].first!=pre){
+    ll res=INT_MIN;
+    for(ll j=0;j<color[i].size();j++){
+        if(color[i][j].first!=idx){
         	vis[i]=true;
-           res=max(res, box[i][j].second + f(i-1,box[i][j].first));
+           res=max(res, color[i][j].second + f(i-1,color[i][j].first));
         }
     }
     
-    return dp[i][pre]=res;
+    return dp[i][idx]=res;
 }
 
 int main() {
-	// your code goes here
 	
-    long long test; cin>>test; while(test--){
-        for(long long i=0;i<nn;i++) box[i].clear();
-        long long n,m; cin>>n>>m;
-        for(long long i=0;i<m;i++){
-            long long b,c,v; cin>>b>>c>>v;
-            box[b].push_back(make_pair(c,v));
+	
+      ll t;
+      cin>>t; 
+        while(t--){
+        for(ll i=0;i<100001;i++)
+        color[i].clear();
+        ll n,m; 
+        cin>>n>>m;
+        for(ll i=0;i<m;i++){
+            ll x,y,z; 
+           cin>>x>>y>>z;
+            color[x].push_back(make_pair(y,z));
         }
         
-        memset(dp,-1,sizeof(dp));
-        memset(vis,false,sizeof(vis));
-        long long res=f(n,-1);
+       
+        for(ll i=0;i<100001;i++)
+          for(ll j=0;j<10;j++)
+              dp[i][j]=-1;
+        
+        for(int i=0;i<100001;i++)
+            vis[i]=0;     
 
-        for(int i=1;i<=n;i++){
+         ll res=f(n,-1);
+
+        for(ll i=1;i<=n;i++){
         	if(!vis[i]) res=-1;
         }
         cout<<res<<endl;
