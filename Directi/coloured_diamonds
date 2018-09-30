@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+const long long nn=1e5+5;
+vector<pair<long long, long long> > box[nn];
+long long dp[nn][10];
+bool vis[nn];
+
+long long f(long long i, long long pre)
+{
+    if(i==0) return 0;
+
+    if(dp[i][pre]!=-1) return dp[i][pre];
+    
+    long long res=INT_MIN;
+    for(long long j=0;j<box[i].size();j++){
+        if(box[i][j].first!=pre){
+        	vis[i]=true;
+           res=max(res, box[i][j].second + f(i-1,box[i][j].first));
+        }
+    }
+    
+    return dp[i][pre]=res;
+}
+
+int main() {
+	// your code goes here
+	
+    long long test; cin>>test; while(test--){
+        for(long long i=0;i<nn;i++) box[i].clear();
+        long long n,m; cin>>n>>m;
+        for(long long i=0;i<m;i++){
+            long long b,c,v; cin>>b>>c>>v;
+            box[b].push_back(make_pair(c,v));
+        }
+        
+        memset(dp,-1,sizeof(dp));
+        memset(vis,false,sizeof(vis));
+        long long res=f(n,-1);
+
+        for(int i=1;i<=n;i++){
+        	if(!vis[i]) res=-1;
+        }
+        cout<<res<<endl;
+    }	
+	return 0;
+}
