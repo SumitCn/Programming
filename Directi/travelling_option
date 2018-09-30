@@ -1,0 +1,36 @@
+using namespace std;
+#include<bits/stdc++.h>
+int ans=INT_MIN;
+int fun(int a[],int n,int i,int b,int c){
+	//cout<<b<<" "<<c<<" ;";
+	if(b<0)
+		return 0;
+	if(b==0)
+		ans=max(ans,c);
+	if(i>=n)
+		return c;
+	c=max(fun(a,n,i+1,b,c),fun(a,n,i+1,b-a[i],c+1));
+	return c ;
+}
+int main(){
+	int n;
+	cin>>n;
+	int a[n];
+	set<int>s;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+		s.insert(a[i]);
+	}
+	int b;
+	cin>>b;
+	if(b<=0)
+		cout<<"0"<<endl;
+	else{
+		int tmp=fun(a,n,0,b,0);
+		if(ans!=INT_MIN)
+			cout<<ans<<endl;
+		else
+			cout<<"-1"<<endl;
+	}
+	return 0;
+}
