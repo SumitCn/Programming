@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+int isTrozan(int n)
+{
+    while (n%2 == 0)
+    {
+        int power = 0;
+        while (n % 2 == 0)
+        {
+            n /= 2;
+            power++;
+        }
+        if (power == 1)
+          return 0;
+    }
+    for (int factor=3;  factor<=sqrt(n); factor += 2)
+    {
+        int power = 0;
+        while (n % factor == 0)
+        {
+            n = n/factor;
+            power++;
+        }
+ 
+        if (power == 1)
+          return 0;
+    }
+ 
+    return (n == 1);
+}
+ 
+ int isPower(unsigned n)
+{
+    if (n==1)  return 1;
+ 
+    for (int x=2; x<=sqrt(n); x++)
+    {
+        unsigned y = 2;
+        unsigned p = pow(x, y);
+ 
+        while (p<=n && p>0)
+        {
+            if (p==n)
+                return 1;
+            y++;
+            p = pow(x, y);
+         }
+    }
+    return 0;
+}
+int main()
+{
+	int T,n;
+	cin>>T;
+	for(int i=0;i<T;i++)
+	{
+		cin>>n;
+		int a=isTrozan(n);
+		if(a==1)
+		{
+			if(isPower(n))
+			cout<<"NO\n";
+			else
+			cout<<"YES\n";
+		}
+		else
+		cout<<"NO\n"
+	}
+
+    return 0;
+}
