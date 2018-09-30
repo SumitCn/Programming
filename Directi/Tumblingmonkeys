@@ -12,6 +12,8 @@ int findroot(int ar[],int br[],int i)
       }
    return i;
   }
+
+
 int main()
 {
  int t;
@@ -33,11 +35,18 @@ int main()
   int cr[10001]={0};
   for(int i=1;i<=n;i++)
     { cr[br[i]]++;
+    
         }
-  int ans=0;
-  for(int i=0;i<=n;i++)
-    ans=max(ans,cr[i]);
+  int ans=1;
+int id=0;
+  for (int i = 1; i < n; i++) 
+    {  if(cr[i]>1)  
+        { ans = (((cr[i] * ans))/(__gcd(cr[i], ans))); id=1;}
+   }
+if(id==1)
   cout<<ans<<"\n";
+else
+  cout<<"0"<<endl;
   }
 return 0;
 }
