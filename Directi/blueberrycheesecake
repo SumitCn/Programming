@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mk make_pair
+#define F first
+#define S second
+
+int main()
+{
+   
+     priority_queue<pair<ll,pair<ll,ll> >> q;	
+     ll a,b;
+ 	  cin>>a>>b;
+     for(ll i=0;i<a;i++)
+     { ll temp;
+        cin>>temp;
+       q.push(mk(temp,mk(temp,2)));
+     }
+     b=b-a;
+     while(b--)
+      {
+       pair<ll,pair<ll,ll>> p=q.top();
+       //cout<<p.F<<" ";
+       q.pop();
+       if(p.S.F%p.S.S!=0)
+          p.S.F+=1;
+       p.F=p.S.F/p.S.S;
+       p.S.S+=1;
+       q.push(p);
+
+       }
+  pair<ll,pair<ll,ll>> p=q.top();
+   cout<<p.F<<endl;
+
+
+
+    
+return 0;
+}
